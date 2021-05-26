@@ -1,19 +1,69 @@
 import React from "react";
 
-export default FormData = () => {
-  console.log("start of the form component");
-  return (
-    <form>
-      <div>
-        <label for="car_make">What is the car make? </label>
-        <input name="car_make"></input>
-      </div>
+// TODO: Move to another file and import here
+class Car {
+  constructor(carMake, carModel) {
+    this.carMake = carMake;
+    this.carModel = carModel;
+  
+  }
+}
 
-      <div>
-        <label for="car_model">What is the car model? </label>
-        <input id="car_model"></input>
-      </div>
-      <button type="submit">submit</button>
-    </form>
-  );
-};
+// component representing the form and collection of its data
+class CarComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      carMake: '',
+      carModel: '',
+      cars: [],
+    }
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleCarMakeChange = this.handleCarMakeChange.bind(this);
+    this.handleCarModelChange = this.handleCarModelChange.bind(this);
+  }
+
+  // this is the handler function referenced by the button form onClick
+  // when the form is submitted the default behavior of the form is prevented
+  // I need to find a way to get the value of the fields into the function
+  // after that I believe I can pass it down to constructor of the Car class
+  // once I'm certain a new class is being created on form submission 
+  // I can update the state and render the array of objects
+  handleSubmit(event) {
+    // need to get the form data into variables that can be passed down
+    // is this redundant with the class? I mean, it definitely needs the data to make a new 
+    // class properly
+    // but maybe there's a way I can just do this in one go
+    event.preventDefault();
+    const car = new Car(this.state.carMake, this.state.carModel);
+    this.setState({ cars: [...this.state.cars, car]}, () => console.log(this.state.cars));
+  }
+
+  handleCarMakeChange(event) {
+    this.setState({carMake: event.target.value});
+  }
+
+  handleCarModelChange(event) {
+    this.setState({ carModel: event.target.value});
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <div>
+          <label for="car_make">What is the car make? </label>
+          <input name="car_make" value={this.state.carMake} onChange={this.handleCarMakeChange}></input>
+        </div>
+  
+        <div>
+          <label for="car_model">What is the car model? </label>
+          <input id="car_model" value={this.state.carModel} onChange={this.handleCarModelChange}></input>
+        </div>
+        <button>submit</button>
+      </form>
+    );
+  }
+}
+
+export default CarComponent;

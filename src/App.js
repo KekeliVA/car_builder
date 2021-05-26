@@ -1,9 +1,9 @@
-import Form from "./components/Form"
+import CarComponent from "./components/Form"
 
 function App() {
   return (
     <div className="App">
-      <Form />
+      <CarComponent />
     </div>
   );
 }
