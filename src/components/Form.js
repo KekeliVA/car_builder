@@ -1,10 +1,11 @@
 import React from "react";
+import CarDisplay from "./Car_Display";
 
 // TODO: Move to another file and import here
 import Car from "../Car";
 
 // component representing the form and collection of its data
-class CarComponent extends React.Component {
+class CarFormComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,6 +13,8 @@ class CarComponent extends React.Component {
       carModel: "",
       cars: [],
     };
+
+    console.log("cars array: " + this.state.cars.length);
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCarMakeChange = this.handleCarMakeChange.bind(this);
@@ -46,28 +49,34 @@ class CarComponent extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div>
-          <label for="car_make">What is the car make? </label>
-          <input
-            name="car_make"
-            value={this.state.carMake}
-            onChange={this.handleCarMakeChange}
-          ></input>
-        </div>
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <div>
+            <label for="car_make">What is the car make? </label>
+            <input
+              name="car_make"
+              value={this.state.carMake}
+              onChange={this.handleCarMakeChange}
+            ></input>
+          </div>
 
-        <div>
-          <label for="car_model">What is the car model? </label>
-          <input
-            id="car_model"
-            value={this.state.carModel}
-            onChange={this.handleCarModelChange}
-          ></input>
-        </div>
-        <button>submit</button>
-      </form>
+          <div>
+            <label for="car_model">What is the car model? </label>
+            <input
+              id="car_model"
+              value={this.state.carModel}
+              onChange={this.handleCarModelChange}
+            ></input>
+          </div>
+          <button>submit</button>
+        </form>
+        {console.log("checking cars: " + this.state.cars.length)}
+        {/*Okay, so the length is able to be printed, which means even at this point cars isn't undefined. 
+        I'm presuming it's becoming undefined from when the addition of my car-list prop and the Car_display.js file */}
+        <CarDisplay car-list={this.state.cars} />
+      </div>
     );
   }
 }
 
-export default CarComponent;
+export default CarFormComponent;
