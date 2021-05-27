@@ -1,6 +1,6 @@
 export default class Car {
-  constructor(carMake, carModel) {
-    this.carMake = carMake;
-    this.carModel = carModel;
+  constructor(make, model) {
+    this.make = make;
+    this.model = model;
   }
 }
