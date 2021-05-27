@@ -14,7 +14,7 @@ class CarFormComponent extends React.Component {
       cars: [],
     };
 
-    console.log("cars array: " + this.state.cars.length);
+    // console.log("cars array: " + this.state.cars.length);
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCarMakeChange = this.handleCarMakeChange.bind(this);
@@ -34,9 +34,9 @@ class CarFormComponent extends React.Component {
     // but maybe there's a way I can just do this in one go
     event.preventDefault();
     const car = new Car(this.state.carMake, this.state.carModel);
-    this.setState({ cars: [...this.state.cars, car] }, () =>
-      console.log(this.state.cars)
-    );
+    this.setState({ cars: [...this.state.cars, car] }, () => {
+      return;
+    });
   }
 
   handleCarMakeChange(event) {
@@ -70,10 +70,10 @@ class CarFormComponent extends React.Component {
           </div>
           <button>submit</button>
         </form>
-        {console.log("checking cars: " + this.state.cars.length)}
-        {/*Okay, so the length is able to be printed, which means even at this point cars isn't undefined. 
+        {/* {console.log("checking cars: " + this.state.cars.length)} */}
+        {/* Okay, so the length is able to be printed, which means even at this point cars isn't undefined. 
         I'm presuming it's becoming undefined from when the addition of my car-list prop and the Car_display.js file */}
-        <CarDisplay car-list={this.state.cars} />
+        <CarDisplay cars={this.state.cars} />
       </div>
     );
   }
